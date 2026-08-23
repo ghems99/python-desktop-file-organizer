@@ -2,7 +2,98 @@
 
 ## Evidence-Based File Classification & Automation
 
-### Project Overview
+
+## Quick Start
+
+This project was developed and tested with Python 3.
+
+### 1. Install the required PDF library
+
+The program uses `pypdf` to extract available text from PDF documents.
+
+```bash
+pip install pypdf
+```
+### 2. Check the Desktop path
+
+Before running the program, check the `desktop` configuration near the top of `desktop_file_organizer.py`.
+
+For a standard Windows Desktop:
+
+```python
+desktop = Path.home() / "Desktop"
+```
+
+If Windows stores your Desktop in OneDrive:
+
+```python
+desktop = Path.home() / "OneDrive" / "Desktop"
+```
+
+Update the path if your system uses a different Desktop location.
+
+The program checks whether the configured target exists before processing files. If the path is incorrect, it stops rather than attempting to use an unknown location.
+
+### 3. Keep DRY RUN enabled for the first test
+
+The program defaults to:
+
+```python
+DRY_RUN = True
+```
+
+I recommend leaving this enabled when first running the program.
+
+DRY RUN allows the program to scan files, evaluate evidence, assign confidence levels, and show proposed actions without actually moving files.
+
+### 4. Run the program
+
+From the project directory:
+
+```bash
+python desktop_file_organizer.py
+```
+
+Review the results before making any changes.
+
+### 5. Review the classifications
+
+Pay particular attention to:
+
+- Suggested source
+- Suggested topic
+- Evidence score
+- Confidence level
+- Proposed destination
+- Files requiring human review
+
+HIGH-confidence classifications are eligible for automated movement.
+
+MEDIUM- and LOW-confidence classifications remain untouched for human review.
+
+### 6. Enable LIVE mode only after testing
+
+After reviewing the DRY RUN results and confirming that the program is behaving as expected, LIVE mode can be enabled by changing:
+
+```python
+DRY_RUN = True
+```
+
+to:
+
+```python
+DRY_RUN = False
+```
+
+In LIVE mode, HIGH-confidence files may be moved automatically.
+
+MEDIUM- and LOW-confidence files are still protected by the human-review confidence gate.
+
+**Safety principle:** I designed the program to prove what it would do before allowing it to change the filesystem. When the evidence is uncertain, the program leaves the file alone for human review.
+
+---
+
+## Project Overview
 
 I built this Python project to solve a real problem: my desktop contained a growing number of cybersecurity study materials, certification documents, PDFs, notes, and other files that needed to be organized.
 
@@ -38,7 +129,7 @@ This turned a basic file-organizing task into a small evidence-based decision sy
 
 ## How It Works
 
-The program follows this general workflow:
+The program has this general workflow:
 
 ```text
 File
