@@ -1,0 +1,12 @@
+# Development versions
+archive/
+
+# Controlled local test files
+test_files/
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# VS Code local settings
+.vscode/
